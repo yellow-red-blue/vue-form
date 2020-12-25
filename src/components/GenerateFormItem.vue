@@ -124,6 +124,9 @@
     </template>
 
     <template v-if="widget.type == 'select'">
+      <!-- TODOLI -->
+      <!-- 1.首先查看是不是联动下拉框 -->
+      <!-- 如果是，先不加载数据，先获取所选择联动选择器的值然后传入联动选择器的参数得到options -->
       <el-select
         v-model="dataModel"
         :disabled="widget.options.disabled"
@@ -199,6 +202,19 @@
       </el-cascader>
     </template>
 
+    <template v-if="widget.type == 'selectLink'">
+           <el-select
+            v-model="dataModel"
+            :disabled="widget.options.disabled"
+            :multiple="widget.options.multiple"
+            :clearable="widget.options.clearable"
+            :placeholder="widget.options.placeholder"
+            :style="{width: widget.options.width}"
+            :filterable="widget.options.filterable"
+          >
+            <el-option v-for="item in (widget.options.remote ? widget.options.remoteOptions : widget.options.options)" :key="item.value" :value="item.value" :label="widget.options.showLabel || widget.options.remote?item.label:item.value"></el-option>
+          </el-select>
+        </template>
     <template v-if="widget.type == 'text'">
       <span>{{dataModel}}</span>
     </template>

@@ -5,7 +5,8 @@
       :label="element.name"
       @click.native.stop="handleSelectWidget(index)"
     >
-        <template v-if="element.type == 'input'">
+    
+        <template v-if="element.type == 'input'" >
           <el-input 
             v-model="element.options.defaultValue"
             :style="{width: element.options.width}"
@@ -14,13 +15,16 @@
           ></el-input>
         </template>
 
+
         <template v-if="element.type == 'textarea'">
+          <div  >
           <el-input type="textarea" :rows="5"
             v-model="element.options.defaultValue"
             :style="{width: element.options.width}"
             :disabled="element.options.disabled"
             :placeholder="element.options.placeholder"
           ></el-input>
+          </div>
         </template>
 
         <template v-if="element.type == 'number'">
@@ -179,6 +183,32 @@
           >
           </vue-editor>
         </template>
+        <template v-if="element.type == 'selectLink'">
+          {{element}}
+          <div class="selectLink"  v-for="(link, index) in element.options" :key="index" @click="clickSelectLink(index)">
+           <el-select
+            v-model="link.defaultValue"
+            :disabled="link.disabled"
+            :multiple="link.multiple"
+            :clearable="link.clearable"
+            :placeholder="link.placeholder"
+            :style="{width: link.width}"
+          >
+            <el-option v-for="item in link.options" :key="item.value" :value="item.value" :label="link.showLabel?item.label:item.value"></el-option>
+          </el-select>
+          </div>
+          
+          <!-- <el-select
+            v-model="element.options.defaultValue"
+            :disabled="element.options.disabled"
+            :multiple="element.options.multiple"
+            :clearable="element.options.clearable"
+            :placeholder="element.options.placeholder"
+            :style="{width: element.options.width}"
+          >
+            <el-option v-for="item in element.options.options" :key="item.value" :value="item.value" :label="element.options.showLabel?item.label:item.value"></el-option>
+          </el-select> -->
+        </template>
 
         <template v-if="element.type=='blank'">
           <div style="height: 50px;color: #999;background: #eee;line-height:50px;text-align:center;">{{$t('fm.components.fields.blank')}}</div>
@@ -216,7 +246,11 @@ export default {
     
   },
   methods: {
+    clickSelectLink() {
+      console.log('clickLink')
+    },
     handleSelectWidget (index) {
+      console.log('others')
       this.selectWidget = this.data.list[index]
     },
     handleWidgetDelete (index) {
@@ -278,3 +312,8 @@ export default {
   }
 }
 </script>
+<style lang="css">
+  .selectLink {
+    border: 1px solid grey;
+  }
+</style>

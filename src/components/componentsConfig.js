@@ -283,6 +283,39 @@ export const advanceComponents = [
       },
       remoteFunc: ''
     }
+  },
+  {
+    type: 'selectLink',
+    icon: 'icon-jilianxuanze',
+    options: 
+      {
+        defaultValue: '',
+        multiple: false,
+        disabled: false,
+        clearable: false,
+        placeholder: '',
+        required: false,
+        showLabel: false,
+        width: '',
+        options: [
+          {
+            value: 'Option 1'
+          },
+          {
+            value: 'Option 2'
+          },{
+            value: 'Option 3'
+          }
+        ],
+        remote: false,
+        filterable: false,
+        remoteOptions: [],
+        props: {
+          value: 'value',
+          label: 'label'
+        },
+        remoteFunc: ''
+      }
   }
 ]
 

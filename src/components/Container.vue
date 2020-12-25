@@ -218,7 +218,7 @@ export default {
     },
     advanceFields: {
       type: Array,
-      default: () => ['blank', 'imgupload', 'editor', 'cascader']
+      default: () => ['blank', 'imgupload', 'editor', 'cascader', 'selectLink']
     },
     layoutFields: {
       type: Array,

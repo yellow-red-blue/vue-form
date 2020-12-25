@@ -2,14 +2,12 @@
   <div class="widget-form-container">
     <div v-if="data.list.length == 0" class="form-empty">{{$t('fm.description.containerEmpty')}}</div>
     <el-form :size="data.config.size" label-suffix=":" :label-position="data.config.labelPosition" :label-width="data.config.labelWidth + 'px'">
-      
       <draggable class="" 
         v-model="data.list" 
         v-bind="{group:'people', ghostClass: 'ghost',animation: 200, handle: '.drag-widget'}"
         @end="handleMoveEnd"
         @add="handleWidgetAdd"
       >
-
         <transition-group name="fade" tag="div" class="widget-form-list">
           <template v-for="(element, index) in data.list">
             <template v-if="element.type == 'grid'">
@@ -54,6 +52,7 @@
                 </el-row>
             </template>
             <template v-else>
+              7777
               <widget-form-item v-if="element && element.key"  :key="element.key" :element="element" :select.sync="selectWidget" :index="index" :data="data"></widget-form-item>
             </template>
           </template>
@@ -118,7 +117,8 @@ export default {
         model: this.data.list[newIndex].type + '_' + key,
         rules: []
       })
-
+      console.log(this.data.list)
+      // debugger
       if (this.data.list[newIndex].type === 'radio' || this.data.list[newIndex].type === 'checkbox' || this.data.list[newIndex].type === 'select') {
         this.$set(this.data.list, newIndex, {
           ...this.data.list[newIndex],
@@ -131,13 +131,33 @@ export default {
         })
       }
 
+      if(this.data.list[newIndex].type === 'selectLink') {
+        this.$set(this.data.list, newIndex, {
+          options: [
+            {
+              ...this.data.list[newIndex].options,
+              remoteFunc: 'func_' + key
+            },
+            {
+              ...this.data.list[newIndex].options,
+              remoteFunc: 'func_' + key
+            },
+          ],
+          key,
+          type: 'selectLink',
+          // 绑定键值
+          model: this.data.list[newIndex].type + '_' + key,
+          rules: []
+        })
+      }
+
       if (this.data.list[newIndex].type === 'grid') {
         this.$set(this.data.list, newIndex, {
           ...this.data.list[newIndex],
           columns: this.data.list[newIndex].columns.map(item => ({...item}))
         })
       }
-
+      console.log(this.data.list)
       this.selectWidget = this.data.list[newIndex]
     },
     handleWidgetColAdd ($event, row, colIndex) {

@@ -65,7 +65,18 @@
           >
         </el-switch>
       </el-form-item>
+      <el-form-item :label="'选择联动的下拉框名'">
+        <!-- 获取当前页面上所有的下拉框（除去自身） -->
+        <!-- TODOLI -->
+        <!-- 联动的下拉框 -->
+        <!-- 联动的下拉框数据可能多字段 -->
+        <el-select v-model="data.options.selectMode">
+          <el-option :label="'测试1'" :value="'selectKey'"></el-option>
+        </el-select>
+        <!-- 选择需要传入的参数（默认） -->
+      </el-form-item>
       <el-form-item :label="$t('fm.config.widget.option')" v-if="Object.keys(data.options).indexOf('options')>=0">
+        
         <el-radio-group v-model="data.options.remote" size="mini" style="margin-bottom:10px;">
           <el-radio-button :label="false">{{$t('fm.config.widget.staticData')}}</el-radio-button>
           <el-radio-button :label="true">{{$t('fm.config.widget.remoteData')}}</el-radio-button>

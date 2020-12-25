@@ -77,7 +77,6 @@ export default function (data, type = 'vue') {
   }
 
   if (type == 'vue') {
-    // console.log(remoteFunc)
     return `<template>
   <div>
     <fm-generate-form :data="jsonData" :remote="remoteFuncs" :value="editData" ref="generateForm">
